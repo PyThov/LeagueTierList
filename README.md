@@ -6,7 +6,7 @@ This League Tier List app takes data from 3 different League of Legends tier lis
 
 **- PRE-REQUISITES -**
 - Google Chrome Installed
-- (Optional) Linux OS [_Dependencies will auto-instsall_]
+- (Optional) Linux OS [_Dependencies will auto-install_]
 
 **- SCRIPTS -**
 ~ Test1.py ~
