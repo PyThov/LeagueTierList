@@ -9,8 +9,7 @@ This League Tier List app takes data from 3 different League of Legends tier lis
 - (Optional) Linux OS [_Dependencies will auto-install_]
 
 **- SCRIPTS -**
-~ Test1.py ~
-_Runs all web scrapers and outputs the overall tier list with a table presented in your web browser_
+- Test1.py: _Runs all web scrapers and outputs the overall tier list with a table presented in your web browser_
 
 __OP.GG__
 - Uses BS4
