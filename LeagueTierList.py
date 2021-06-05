@@ -3,6 +3,15 @@
 Tier list averages
 """
 
+
+import os
+import common
+
+if not os.path.exists('.init_flag.txt'):
+    print("NO INIT FLAG")
+    common.install_dependencies(True)
+    
+
 import math
 import plotly.graph_objects as go
 

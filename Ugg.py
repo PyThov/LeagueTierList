@@ -1,14 +1,16 @@
+"""Retrieve U.GG Champion Tier List Data"""
+
 
 import re
+import common
+
 from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import SessionNotCreatedException as SNCE
+from selenium.common.exceptions import WebDriverException as WDE
 
 RE_STRING = r'\n\d+\n([A-Z][a-z]+\'*[a-zA-Z]+)\nS\+*\n\d+\.\d*%\n\d+\.\d*%\n\d+\.\d*%\n\d+,\d+'
-
-OPTIONS = webdriver.ChromeOptions()
-CAPABILITIES = {'browserName': 'chrome', 'version': '89', 'platform': 'ANY'}
 
 
 class Ugg:
@@ -19,10 +21,17 @@ class Ugg:
         self.tier_lists = {}
 
         try:
-            self.browser = Chrome('D:\\Documents\\Chrome\\chromedriver.exe', desired_capabilities=CAPABILITIES)
+            self.browser = Chrome('drivers/chromedriver.exe')
         except SNCE as e:
             print(e)
-            print("UPDATING CHROMEDRIVER VERSION")
+            print("UPDATING CHROMEDRIVER")
+            common.update_chrome_driver()
+            self.browser = Chrome('drivers/chromedriver.exe')
+        except WDE as e:
+            print(e)
+            print("INSTALLING CHROMEDRIVER")
+            common.update_chrome_driver()
+            self.browser = Chrome('drivers/chromedriver.exe')
 
 
         return

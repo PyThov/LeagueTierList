@@ -3,6 +3,7 @@ import LeagueTierList
 
 
 def test_main():
+
     test = LeagueTierList.LeagueTierList()
 
     print(f"URLS: {test.urls}\n")
