@@ -15,6 +15,7 @@ if not os.path.exists('.init_flag.txt'):
 import math
 import plotly.graph_objects as go
 
+from datetime import date
 from Opgg import Opgg
 from Mobalytics import Mobalytics
 from Ugg import Ugg
@@ -148,13 +149,17 @@ class LeagueTierList:
 
         print()
 
+        temp = open(f'tier_lists/overall_tier_list_{date.today().strftime("%Y-%m-%d")}.txt', 'w+')
+
         self.print_line("OVERALL TIER LIST")
         for x in self.tier_list.keys():
-            print(f"{str(x).lower().capitalize()}: "
-                  f"{dict(sorted(self.tier_list[x].items(), key=lambda item: item[1], reverse=True))}")
-            print()
+            tmpstr = f"{str(x).lower().capitalize()}: "\
+                     f"{dict(sorted(self.tier_list[x].items(), key=lambda item: item[1], reverse=True))}\n"
+            print(tmpstr)
+            temp.write(tmpstr)
 
         print()
+        temp.close()
 
     def print_each_tier_list(self):
 
