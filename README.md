@@ -25,3 +25,8 @@ __MOBALYTICS__
 
 __U.GG__
 - Uses Selenium with Google Chrome
+
+
+**TODO:**
+- Make each tier list execute asynchronously
+- Create a better GUI
