@@ -31,7 +31,8 @@ UGG_URLS = {
 
 
 URLS = {"opgg": "https://na.op.gg/champion/statistics#",
-        "mobalytics": "https://app.mobalytics.gg/lol/tier-list",
+        "mobalytics": "https://mobalytics.gg/blog/lol-tier-list-for-climbing-solo-queue/",
+        # "mobalytics": "https://app.mobalytics.gg/lol/tier-list",
         "ugg": UGG_URLS
         }
 

@@ -33,7 +33,6 @@ class Ugg:
             common.update_chrome_driver()
             self.browser = Chrome('drivers/chromedriver.exe')
 
-
         return
 
     def build_ugg(self, role, print_flag=False):
