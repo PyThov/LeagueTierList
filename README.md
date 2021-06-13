@@ -1,14 +1,18 @@
 # LeagueTierList
 
-**--- INTRODUCTION ---**
-
+_INTRODUCTION_
+  -
 This League Tier List app takes data from 3 different League of Legends tier lists (Op.gg, U.gg, and Mobalytics) and normalizes the data into one tier list, to show what the agreed upon OP champions are.
 
 
-
-**- PRE-REQUISITES -**
-- Google Chrome Installed
-- (Optional) Linux OS [_Dependencies will auto-install_]
+_Prerequisites_
+  - 
+  
+  - Google Chrome installed
+  - **Windows**
+    - Google Chrome driver in the LeagueTierList/drivers/ folder named "chromedriver.exe"
+  - **Linux**
+    - N/A (driver auto downloads)
 
 
 
