@@ -4,9 +4,10 @@ import os
 
 PROJECT_NAME = "League Tier List"
 
+
 def request_command(cmd):
     print(f"{PROJECT_NAME} would like to execute command: {cmd}\n(Y/N)")
-    if(input().lower().startswith('y')):
+    if input().lower().startswith('y'):
         os.system(cmd)
     else:
         print("Skipping Command.")
@@ -55,5 +56,8 @@ def update_chrome_driver():
         sys_echo('unzip chromedriver.zip')
         sys_echo('mv chromedriver drivers/chromedriver.exe')
         sys_echo('rm chromedriver.zip')
+    else:
+        print("Platform not Linux, please update chromedriver manually.")
+        exit()
 
     return

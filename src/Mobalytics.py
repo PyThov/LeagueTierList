@@ -9,12 +9,13 @@ ROLES = ["top", "jungle", "mid", "adc", "support", ""]
 
 class Mobalytics:
 
-    def __init__(self, url):
+    def __init__(self, url, db):
 
+        self.url = url
+        self.db = db
         page = requests.get(url)
 
         self.soup = BS(page.content, 'html.parser')
-        self.url = url
         self.tier_lists = {}
 
         return
@@ -22,7 +23,7 @@ class Mobalytics:
     def build_mobalytics(self, role, print_flag=False):
 
         results = self.soup.find(attrs={"class": "tier-list"}).findAll(attrs={'class': "section"})
-        print(results)
+        # print(results)
         if role == 'bot':
             temp_role = 'adc'
         else:
@@ -30,7 +31,7 @@ class Mobalytics:
 
         # champions = re.findall(r'<div class="css-bygw6y e3q069b5">\s*([A-Z][a-z]+\'*[a-zA-Z]+)\s*<.div>', str(results))
         role_subset = re.findall(rf'<h3 \S+{temp_role.lower().capitalize()}[\s\S]+<\/div>\s<\/div>, <div class="section">\s<h3 class="{ROLES[ROLES.index(temp_role.lower()) + 1]}', str(results))
-        print(role_subset)
+        # print(role_subset)
         champions = re.findall(r'width="70"\/>([A-Z][a-z]+\'*[a-zA-Z]+)<'
                                r'', str(role_subset))
 

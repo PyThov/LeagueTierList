@@ -7,7 +7,7 @@ Tier list averages
 import os
 import common
 
-if not os.path.exists('.init_flag.txt'):
+if not os.path.exists('../.init_flag.txt'):
     print("NO INIT FLAG")
     common.install_dependencies(True)
     
@@ -16,21 +16,29 @@ import math
 import plotly.graph_objects as go
 
 from datetime import date
-from Opgg import Opgg
-from Mobalytics import Mobalytics
-from Ugg import Ugg
+from src.Opgg import Opgg
+from src.Mobalytics import Mobalytics
+from src.Ugg import Ugg
+from src.OverDB import OverDB
 
+DB_PARAMS = {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "user": "root",
+    "pw": "",
+    "db": "overgg"
+}
 
 UGG_URLS = {
     "top": "https://u.gg/lol/top-lane-tier-list",
     "jungle": "https://u.gg/lol/jungle-tier-list",
     "mid": "https://u.gg/lol/mid-lane-tier-list",
-    "bot": "https://u.gg/lol/adc-tier-list",
+    "adc": "https://u.gg/lol/adc-tier-list",
     "support": "https://u.gg/lol/support-tier-list"
 }
 
 
-URLS = {"opgg": "https://na.op.gg/champion/statistics#",
+URLS = {"opgg": "https://na.op.gg/champion/statistics",
         "mobalytics": "https://mobalytics.gg/blog/lol-tier-list-for-climbing-solo-queue/",
         # "mobalytics": "https://app.mobalytics.gg/lol/tier-list",
         "ugg": UGG_URLS
@@ -38,21 +46,37 @@ URLS = {"opgg": "https://na.op.gg/champion/statistics#",
 
 ROLES = ['top', 'jungle', 'mid', 'bot', 'support']
 
-S_TIER = 3
+S_TIER = len(URLS)
 
 
 class LeagueTierList:
 
-    def __init__(self):
+    def __init__(self, opgg=True, mobalytics=True, ugg=True):
 
         self.urls = URLS
         self.tier_list = {}
 
-        self.opgg = Opgg(URLS["opgg"])
-        self.mobalytics = Mobalytics(URLS["mobalytics"])
-        self.ugg = Ugg(URLS["ugg"])
+        self.db = OverDB(DB_PARAMS)
+
+        if opgg:
+            self.opgg = Opgg(URLS["opgg"], self.db)
+        if mobalytics:
+            self.mobalytics = Mobalytics(URLS["mobalytics"], self.db)
+        if ugg:
+            self.ugg = Ugg(URLS["ugg"], self.db)
+
+        self.patch = self.set_patch()
 
         return
+
+    def set_patch(self):
+        try:
+            patch = self.opgg.find_patch()
+        except ReferenceError as e:
+            print(f"OPGG does not exist: {e}")
+            patch = "0.0"
+
+        return patch
 
     def sort_lists(self):
 
@@ -62,7 +86,7 @@ class LeagueTierList:
         return
 
     def create_graph(self):
-
+        # TODO
         return
 
     def create_table(self, role):
@@ -73,9 +97,26 @@ class LeagueTierList:
         counts = list(self.tier_list[role].values())
 
         fig = go.Figure(data=[go.Table(header=dict(values=['Champion', 'Count']),
-                                       cells=dict(values=[champions, counts]))
-                              ])
+                                       cells=dict(values=[champions, counts]))])
         fig.show()
+
+        return
+
+    def insert_champ(self, pos, champ, source):
+
+        query = f"""insert into champions 
+                (patch, position, champion, source) 
+                values 
+                ('{self.patch}','{pos}','{champ.replace("'","")}','{source}')"""
+        # print(query)
+        self.db.query(query)
+
+        return
+
+    def commit_champs(self):
+
+        self.db.db.commit()
+        print("Committed changes.")
 
         return
 
@@ -113,15 +154,18 @@ class LeagueTierList:
         self.tier_list[role] = {}
 
         for champion in self.opgg.tier_lists["adc" if role == "bot" else role]:
+            self.insert_champ(role, champion, "opgg")
             self.tier_list[role][champion] = 1
 
-        for champion in self.ugg.tier_lists[role]:
+        for champion in self.ugg.tier_lists["adc" if role == "bot" else role]:
+            self.insert_champ(role, champion, "ugg")
             if self.tier_list.get(role, {}).get(champion) is None:
                 self.tier_list[role][champion] = 1
             else:
                 self.tier_list[role][champion] += 1
 
         for champion in self.mobalytics.tier_lists[role]:
+            self.insert_champ(role, champion, "mobalytics")
             if self.tier_list.get(role, {}).get(champion) is None:
                 self.tier_list[role][champion] = 1
             else:
@@ -150,7 +194,7 @@ class LeagueTierList:
 
         print()
 
-        temp = open(f'tier_lists/overall_tier_list_{date.today().strftime("%Y-%m-%d")}.txt', 'w+')
+        temp = open(f'../tier_lists/overall_tier_list_{date.today().strftime("%Y-%m-%d")}.txt', 'w+')
 
         self.print_line("OVERALL TIER LIST")
         for x in self.tier_list.keys():

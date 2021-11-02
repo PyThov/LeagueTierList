@@ -1,0 +1,6 @@
+__pycache__/
+venv/
+.idea/
+drivers/
+tier_lists/
+.init_flag.txt
