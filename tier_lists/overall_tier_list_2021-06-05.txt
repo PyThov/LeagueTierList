@@ -1,5 +1,0 @@
-Top: {'Wukong': 3, 'Sett': 3, 'Gwen': 2, 'Aatrox': 2, 'Nasus': 2, 'Shen': 2, 'Urgot': 2, 'Sylas': 1, 'Riven': 1, 'Camille': 1, 'Fiora': 1, 'Jax': 1, 'Darius': 1, 'Sion': 1, "Cho'Gath": 1, 'Malphite': 1, 'Mordekaiser': 1, 'Garen': 1, 'Kled': 1, 'Ornn': 1}
-Jungle: {'Elise': 3, 'Shaco': 3, 'Zac': 2, 'Nocturne': 2, 'Fiddlesticks': 1, "Kha'Zix": 1, 'Evelynn': 1, 'Kayn': 1, 'Warwick': 1, 'Amumu': 1, 'Volibear': 1, 'Diana': 1}
-Mid: {'Katarina': 3, 'Zed': 3, 'Talon': 2, 'LeBlanc': 2, 'Anivia': 2, 'Malzahar': 2, 'Diana': 2, 'Fizz': 2, 'Yasuo': 2, 'Sylas': 1, 'Rumble': 1, 'Vladimir': 1, 'Kassadin': 1, 'Viego': 1, 'Annie': 1, 'Lux': 1, 'Ahri': 1, 'Ekko': 1, 'Neeko': 1}
-Bot: {'Ezreal': 2, 'Samira': 2, 'Swain': 2, "Kog'Maw": 2, 'Ashe': 2, 'Vayne': 2, 'Jhin': 2, 'Jinx': 2, 'Tristana': 2, 'Yasuo': 1, 'Sivir': 1, 'Seraphine': 1}
-Support: {'Leona': 3, 'Lulu': 3, 'Thresh': 2, 'Zilean': 2, 'Blitzcrank': 2, 'Morgana': 2, 'Senna': 1, 'Shaco': 1, 'Soraka': 1, 'Xerath': 1, 'Zyra': 1, 'Nami': 1}
